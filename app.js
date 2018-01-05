@@ -49,8 +49,9 @@ client.on('message', (msg) => {
 
     // Command handler
     switch(command) {
+        // Command: Help
         case 'help':
-            msg.reply( {
+            msg.reply({
                 embed: {
                     color: 0xe67e22,
                     author: {
@@ -67,8 +68,9 @@ client.on('message', (msg) => {
                 }
             });
             break;
+        // Command: Info
         case 'info':
-            msg.reply( {
+            msg.reply({
                 embed: {
                     color: 0xe67e22,
                     author: {
@@ -79,9 +81,9 @@ client.on('message', (msg) => {
                 }
             });
             break;
-            break;
+        // Command not found
         default:
-            msg.reply( {
+            msg.reply({
                 embed: {
                     color: 0xe74c3c,
                     author: {
