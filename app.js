@@ -8,7 +8,8 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-// TODO: Load config
+// Config
+const config = require('./config.json');
 
 // On: Ready
 client.on('ready', () => {
