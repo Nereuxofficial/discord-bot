@@ -11,6 +11,28 @@ const client = new Discord.Client();
 // Config
 const config = require('./config.json');
 
+// Is the user a bot master/moderator
+var isUserModerator = function(member) {
+    if(member.roles.some(role => config.botMasterRoles.includes(role.name))) {
+        return true;
+    } else {
+        return false;
+    }
+};
+// Not enough permissions reply
+var nepReply = function(msg) {
+    msg.reply({
+        embed: {
+            color: 0xe74c3c,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            description: 'You dont have enough permissions!'
+        }
+    });
+}
+
 // On: Ready
 client.on('ready', () => {
     logger.success('Bot is ready.');
@@ -49,6 +71,7 @@ client.on('message', (msg) => {
 
     // Command handler
     switch(command) {
+        // Normal Commands
         // Command: Help
         case 'help':
             msg.reply({
@@ -81,6 +104,32 @@ client.on('message', (msg) => {
                 }
             });
             break;
+
+        // Moderator commands
+        case 'mod_help': {
+            if(!isUserModerator(msg.member)) {
+                nepReply(msg);
+            } else {
+                msg.reply({
+                    embed: {
+                        color: 0x3498db,
+                        author: {
+                            name: client.user.name,
+                            icon_url: client.user.avatarURL
+                        },
+                        description: 'Heres a list of all moderator commands.',
+                        fields: [
+                            {
+                                name: config.prefix + 'kick',
+                                value: 'Kick a person from the discord'
+                            }
+                        ]
+                    }
+                });
+            }
+            break;
+        }
+
         // Command not found
         default:
             msg.reply({

@@ -1,4 +1,7 @@
 {
     "prefix": "!",
-    "game": "https://mail-forwarder.space"
+    "game": "https://mail-forwarder.space",
+    "botMasterRoles": [
+        "Bot master"
+    ]
 }
