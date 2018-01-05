@@ -111,6 +111,7 @@ client.on('message', (msg) => {
             break;
 
         // Moderator commands
+        // mod_help command
         case 'mod_help': {
             if(!isUserModerator(msg.member)) {
                 nepReply(msg);
@@ -125,7 +126,7 @@ client.on('message', (msg) => {
                         description: 'Heres a list of all moderator commands.',
                         fields: [
                             {
-                                name: config.prefix + 'kick',
+                                name: config.prefix + 'kick {@Person} {Reason}',
                                 value: 'Kick a person from the discord'
                             }
                         ]
@@ -134,6 +135,34 @@ client.on('message', (msg) => {
             }
             break;
         }
+        // kick command
+        case 'kick':
+            if(!isUserModerator(msg.member)) {
+                nepReply(msg);
+            } else {
+                // Get the member and check if kickable
+                let member = msg.mentions.members.first();
+                if(!member) return errorReply('User is invalid!', msg);
+                if(!member.kickable) return errorReply('User isnt kickable!', msg);
+
+                // Get the reason
+                let reason = args.slice(1).join(' ');
+                if(!reason) return errorReply('Please submit a reason!', msg);
+
+                // Kick the person
+                member.kick(reason);
+                msg.reply({
+                    embed: {
+                        color: 0x3498db,
+                        author: {
+                            name: client.user.name,
+                            icon_url: client.user.avatarURL
+                        },
+                        description: 'Kicked user ' + member.user.tag + ' because of ' + reason
+                    }
+                });
+            }
+            break;
 
         // Command not found
         default:
