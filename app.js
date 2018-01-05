@@ -50,8 +50,6 @@ client.on('message', (msg) => {
     // Command handler
     switch(command) {
         case 'help':
-            break;
-        default:
             msg.reply( {
                 embed: {
                     color: 0xe67e22,
@@ -59,7 +57,38 @@ client.on('message', (msg) => {
                         name: client.user.name,
                         icon_url: client.user.avatarURL
                     },
-                    description: 'The command ' + command + ' doesnt exists!'
+                    description: 'Heres a list of all commands.',
+                    fields: [
+                        {
+                            name: config.prefix + 'info',
+                            value: 'Shows you some informations about Mail-Forwarder and this bot.'
+                        }
+                    ]
+                }
+            });
+            break;
+        case 'info':
+            msg.reply( {
+                embed: {
+                    color: 0xe67e22,
+                    author: {
+                        name: client.user.name,
+                        icon_url: client.user.avatarURL
+                    },
+                    description: '[Mail-Forwarder](https://mail-forwarder.space) is a service which forwards your mails securely to your real e-mail-address. All of our services are [open source](https://github.com/mail-forwarder). Feel free to submit a pull request!'
+                }
+            });
+            break;
+            break;
+        default:
+            msg.reply( {
+                embed: {
+                    color: 0xe74c3c,
+                    author: {
+                        name: client.user.name,
+                        icon_url: client.user.avatarURL
+                    },
+                    description: 'The command `' + command + '` doesnt exists!'
                 }
             });
             break;
