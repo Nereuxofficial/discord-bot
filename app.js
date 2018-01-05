@@ -14,6 +14,9 @@ const config = require('./config.json');
 // On: Ready
 client.on('ready', () => {
     logger.success('Bot is ready.');
+
+    // Change the game
+    client.user.setGame(config.game);
 });
 
 // Log in
