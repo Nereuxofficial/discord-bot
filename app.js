@@ -11,6 +11,20 @@ const client = new Discord.Client();
 // Config
 const config = require('./config.json');
 
+// Error reply
+var errorReply = function(error, msg) {
+    msg.reply({
+        embed: {
+            color: 0xe74c3c,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            description: error
+        }
+    });
+};
+
 // Is the user a bot master/moderator
 var isUserModerator = function(member) {
     if(member.roles.some(role => config.botMasterRoles.includes(role.name))) {
@@ -21,17 +35,8 @@ var isUserModerator = function(member) {
 };
 // Not enough permissions reply
 var nepReply = function(msg) {
-    msg.reply({
-        embed: {
-            color: 0xe74c3c,
-            author: {
-                name: client.user.name,
-                icon_url: client.user.avatarURL
-            },
-            description: 'You dont have enough permissions!'
-        }
-    });
-}
+    errorReply('Not enough permissions!', msg);
+};
 
 // On: Ready
 client.on('ready', () => {
@@ -132,16 +137,7 @@ client.on('message', (msg) => {
 
         // Command not found
         default:
-            msg.reply({
-                embed: {
-                    color: 0xe74c3c,
-                    author: {
-                        name: client.user.name,
-                        icon_url: client.user.avatarURL
-                    },
-                    description: 'The command `' + command + '` doesnt exists!'
-                }
-            });
+            errorReply('The command `' + command + '` doesnt exists!', msg);
             break;
     }
 });
