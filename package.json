@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Mail-Forwarder/discord-bot#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "discord.js": "^11.2.1",
     "dotenv": "^4.0.0"
   }

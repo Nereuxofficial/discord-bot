@@ -199,3 +199,21 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+=============
+License Notes
+=============
+
+This software also incorporates a very small amount of code from third-party vendors,
+which is presumably licensed as follows:
+
+* colors https://github.com/Marak/colors.js
+   (c) Marak Squires (Original Library)
+   (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com) (Additional Functionality)
+   released under MIT License
+* dotenv https://github.com/motdotla/dotenv
+   (c) 2015, Scott Motte
+   released under BSD 2-clause "Simplified" License
+* discord.js https://github.com/hydrabolt/discord.js
+   (c) 2017 Amish Shah
+   released under Apache 2.0 License
