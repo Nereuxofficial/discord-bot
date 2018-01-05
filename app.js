@@ -36,5 +36,11 @@ client.on('guildMemberAdd', (member) => {
     });
 });
 
+// On: Message
+client.on('message' (msg) => {
+    // Author = bot?
+    if(msg.author.id === client.user.id || message.author.bot) return;
+});
+
 // Log in
 client.login(process.env.BOT_TOKEN);
