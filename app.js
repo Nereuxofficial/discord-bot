@@ -39,9 +39,31 @@ client.on('guildMemberAdd', (member) => {
 // On: Message
 client.on('message', (msg) => {
     // Author = bot?
-    if(msg.author.id === client.user.id || message.author.bot) return;
+    if(msg.author.id === client.user.id || msg.author.bot) return;
     // Is it a command?
-    if(message.content.indexOf(config.prefix) !== 0) return;
+    if(msg.content.indexOf(config.prefix) !== 0) return;
+
+    // Command
+    const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+
+    // Command handler
+    switch(command) {
+        case 'help':
+            break;
+        default:
+            msg.reply( {
+                embed: {
+                    color: 0xe67e22,
+                    author: {
+                        name: client.user.name,
+                        icon_url: client.user.avatarURL
+                    },
+                    description: 'The command ' + command + ' doesnt exists!'
+                }
+            });
+            break;
+    }
 });
 
 // Log in
