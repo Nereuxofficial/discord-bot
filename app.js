@@ -31,13 +31,13 @@ client.on('guildMemberAdd', (member) => {
             },
             title: 'Mail-Forwarder',
             url: 'https://mail-forwarder.space',
-            description: 'Welcome on the official Mail-Forwarder discord!'
+            description: 'Welcome on the official Mail-Forwarder discord! My prefix is `' + config.prefix + '`.'
         }
     });
 });
 
 // On: Message
-client.on('message' (msg) => {
+client.on('message', (msg) => {
     // Author = bot?
     if(msg.author.id === client.user.id || message.author.bot) return;
 });
