@@ -19,5 +19,22 @@ client.on('ready', () => {
     client.user.setGame(config.game);
 });
 
+// Say hello to new users
+client.on('guildMemberAdd', (member) => {
+    // Send a super nice welcome message to the user
+    member.send({
+        embed: {
+            color: 0xe67e22,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            title: 'Mail-Forwarder',
+            url: 'https://mail-forwarder.space',
+            description: 'Welcome on the official Mail-Forwarder discord!'
+        }
+    });
+});
+
 // Log in
 client.login(process.env.BOT_TOKEN);
