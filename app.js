@@ -40,6 +40,8 @@ client.on('guildMemberAdd', (member) => {
 client.on('message', (msg) => {
     // Author = bot?
     if(msg.author.id === client.user.id || message.author.bot) return;
+    // Is it a command?
+    if(message.content.indexOf(config.prefix) !== 0) return;
 });
 
 // Log in
