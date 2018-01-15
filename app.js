@@ -103,6 +103,10 @@ client.on('message', (msg) => {
                         {
                             name: config.prefix + 'info',
                             value: 'Shows you some informations about Mail-Forwarder and this bot.'
+                        },
+                        {
+                            name: config.prefix + 'ping',
+                            value: 'Shows you the latency and the api latency.'
                         }
                     ]
                 }
@@ -119,6 +123,21 @@ client.on('message', (msg) => {
                     },
                     description: '[Mail-Forwarder](https://mail-forwarder.space) is a service which forwards your mails securely to your real e-mail-address. All of our services are [open source](https://github.com/mail-forwarder). Feel free to submit a pull request!'
                 }
+            });
+            break;
+        // Command: ping
+        case 'ping':
+            msg.channel.send('Ping?').then((m) => {
+                m.edit({
+                    embed: {
+                        color: 0xe67e22,
+                        author: {
+                            name: client.user.name,
+                            icon_url: client.user.avatarURL
+                        },
+                        description: 'Pong! Latency is ' + (m.createdTimestamp - msg.createdTimestamp) + 'ms. API Latency is ' + (Math.round(client.ping)) + 'ms.'
+                    }
+                })
             });
             break;
 
