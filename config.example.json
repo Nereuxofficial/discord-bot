@@ -3,5 +3,9 @@
     "game": "https://mail-forwarder.space",
     "botMasterRoles": [
         "Bot master"
-    ]
+    ],
+    "channels": {
+        "announcements": "announcements",
+        "botCommands": "bot_commands"
+    }
 }
