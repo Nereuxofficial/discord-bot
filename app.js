@@ -143,7 +143,11 @@ client.on('message', (msg) => {
                             },
                             {
                                 name: config.prefix + 'ban {@Person} {Reason}',
-                                value: 'Bann a person from the discord'
+                                value: 'Ban a person from the discord'
+                            },
+                            {
+                                name: config.prefix + 'purge {Count}',
+                                value: 'Deletes the last {Count} messages'
                             }
                         ]
                     }
@@ -205,6 +209,31 @@ client.on('message', (msg) => {
                 });
             }
             break;
+        case 'purge':
+            if(!isUserModerator(msg.member)) {
+                nepReply(msg);
+            } else {
+                // Get the delete count
+                const deleteCount = parseInt(args[0], 10);
+
+                // Valid?
+                if(!deleteCount || deleteCount < 2 || deleteCount > 100) return errorReply('Please provide a number between 2 and 100 for the number of messages to delete!', msg);
+
+                msg.channel.bulkDelete(deleteCount).then(() => {
+                    msg.reply({
+                        embed: {
+                            color: 0x3498db,
+                            author: {
+                                name: client.user.name,
+                                icon_url: client.user.avatarURL
+                            },
+                            description: 'Successfully deleted last ' + deleteCount + ' messages!'
+                        }
+                    });
+                });
+            }
+            break;
+
         // Command not found
         default:
             errorReply('The command `' + command + '` doesnt exists!', msg);
