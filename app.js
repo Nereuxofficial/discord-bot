@@ -44,6 +44,18 @@ client.on('ready', () => {
 
     // Change the game
     client.user.setGame(config.game);
+
+    // Say hello
+    client.channels.find('name', config.channels.botCommands).send({
+        embed: {
+            color: 0x2ecc71,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            description: 'Hello world!'
+        }
+    });
 });
 
 // Say hello to new users
@@ -198,6 +210,49 @@ client.on('message', (msg) => {
             errorReply('The command `' + command + '` doesnt exists!', msg);
             break;
     }
+});
+
+// On process exit
+process.on('SIGINT', () => {
+    logger.info('SIGINT received, disconnecting...');
+
+    // Say good bye and disconnect
+    client.channels.find('name', config.channels.botCommands).send({
+        embed: {
+            color: 0xe74c3c,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            description: 'Good bye!'
+        }
+    }).then(() => {
+        // Destroy the client and exit
+        client.destroy();
+        process.exit(71903);
+    });
+});
+process.on('exit', (code) => {
+    // Check if exit is from SIGINT event
+    if(code === 71903) process.exit(0);
+
+    logger.info('Exit received, disconnecting...');
+
+    // Say good bye and disconnect
+    client.channels.find('name', config.channels.botCommands).send({
+        embed: {
+            color: 0xe74c3c,
+            author: {
+                name: client.user.name,
+                icon_url: client.user.avatarURL
+            },
+            description: 'Good bye!'
+        }
+    }).then(() => {
+        // Destroy the client and exit
+        client.destroy();
+        process.exit(code);
+    });
 });
 
 // Log in
