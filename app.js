@@ -128,6 +128,10 @@ client.on('message', (msg) => {
                             {
                                 name: config.prefix + 'kick {@Person} {Reason}',
                                 value: 'Kick a person from the discord'
+                            },
+                            {
+                                name: config.prefix + 'ban {@Person} {Reason}',
+                                value: 'Bann a person from the discord'
                             }
                         ]
                     }
@@ -163,7 +167,32 @@ client.on('message', (msg) => {
                 });
             }
             break;
+        case 'ban':
+            if(!isUserModerator(msg.member)) {
+                nepReply(msg);
+            } else {
+                // Get the member and check if bannable
+                let member = msg.mentions.members.first();
+                if(!member) return errorReply('User is invalid!', msg);
+                if(!member.bannable) return errorReply('User isnt bannable!', msg);
 
+                // Get the reason
+                let reason = args.slice(1).join(' ');
+                if(!reason) return errorReply('Please submit a reason!', msg);
+
+                member.ban(reason);
+                msg.reply({
+                    embed: {
+                        color: 0x3498db,
+                        author: {
+                            name: client.user.name,
+                            icon_url: client.user.avatarURL
+                        },
+                        description: 'Banned user ' + member.user.tag + ' because of ' + reason
+                    }
+                });
+            }
+            break;
         // Command not found
         default:
             errorReply('The command `' + command + '` doesnt exists!', msg);
