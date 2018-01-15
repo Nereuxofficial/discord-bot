@@ -148,6 +148,10 @@ client.on('message', (msg) => {
                             {
                                 name: config.prefix + 'purge {Count}',
                                 value: 'Deletes the last {Count} messages'
+                            },
+                            {
+                                name: config.prefix + 'announce {Message}',
+                                value: 'Announce {Message}'
                             }
                         ]
                     }
@@ -183,6 +187,7 @@ client.on('message', (msg) => {
                 });
             }
             break;
+        // ban command
         case 'ban':
             if(!isUserModerator(msg.member)) {
                 nepReply(msg);
@@ -209,6 +214,7 @@ client.on('message', (msg) => {
                 });
             }
             break;
+        // purge command
         case 'purge':
             if(!isUserModerator(msg.member)) {
                 nepReply(msg);
@@ -233,7 +239,29 @@ client.on('message', (msg) => {
                 });
             }
             break;
+        // announce command
+        case 'announce':
+            if(!isUserModerator(msg.member)) {
+                nepReply(msg);
+            } else {
+                // Get the message which should be announce
+                let message = args.join(' ');
+                if(!message) return errorReply('Please submit a message!', msg);
 
+                // Send the announcement
+                client.channels.find('name', config.channels.announcements).send('@everyone ' + message);
+                msg.reply({
+                    embed: {
+                        color: 0x3498db,
+                        author: {
+                            name: client.user.name,
+                            icon_url: client.user.avatarURL
+                        },
+                        description: 'Successfully announced ' + message
+                    }
+                });
+            }
+            break;
         // Command not found
         default:
             errorReply('The command `' + command + '` doesnt exists!', msg);
