@@ -46,7 +46,7 @@ client.on('ready', () => {
     client.user.setGame(config.game);
 
     // Say hello
-    client.channels.find('name', config.channels.botCommands).send({
+    /*client.channels.find('name', config.channels.botCommands).send({
         embed: {
             color: 0x2ecc71,
             author: {
@@ -55,7 +55,7 @@ client.on('ready', () => {
             },
             description: 'Hello world!'
         }
-    });
+    });*/
 });
 
 // Say hello to new users
@@ -79,9 +79,14 @@ client.on('guildMemberAdd', (member) => {
 client.on('message', (msg) => {
     // Author = bot?
     if(msg.author.id === client.user.id || msg.author.bot) return;
+    if(msg.author.id =="212888890762067968"){
+
+        msg.reply(":spy: WE ARE WATCHING YOU!")
+    }
     // Is it a command?
     if(msg.content.indexOf(config.prefix) !== 0) return;
 
+    else logger.info("Message received!");
     // Command
     const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -332,4 +337,4 @@ process.on('exit', (code) => {
 });
 
 // Log in
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);

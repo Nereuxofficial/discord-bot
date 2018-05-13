@@ -1,6 +1,7 @@
 {
     "prefix": "!",
     "game": "https://mail-forwarder.space",
+    "token": "YOUR_TOKEN",
     "botMasterRoles": [
         "Bot master"
     ],
