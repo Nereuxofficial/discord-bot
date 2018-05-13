@@ -40,7 +40,7 @@ var nepReply = function(msg) {
 
 // On: Ready
 client.on('ready', () => {
-    logger.success('Bot is ready.');
+    logger.success(`Logged in as ${client.user.tag}!`);
 
     // Change the game
     client.user.setGame(config.game);
@@ -332,4 +332,4 @@ process.on('exit', (code) => {
 });
 
 // Log in
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
