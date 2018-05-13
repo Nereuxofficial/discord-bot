@@ -43,10 +43,10 @@ client.on('ready', () => {
     logger.success('Bot is ready.');
 
     // Change the game
-    client.user.setGame(config.game);
+    client.user.setActivity(config.game); //Set the current game //updated to setActivity
 
     // Say hello
-    /*client.channels.find('name', config.channels.botCommands).send({
+    client.channels.find('name', config.channels.botCommands).send({
         embed: {
             color: 0x2ecc71,
             author: {
@@ -55,7 +55,7 @@ client.on('ready', () => {
             },
             description: 'Hello world!'
         }
-    });*/
+    });
 });
 
 // Say hello to new users
@@ -81,7 +81,7 @@ client.on('message', (msg) => {
     if(msg.author.id === client.user.id || msg.author.bot) return;
     if(msg.author.id =="212888890762067968"){
 
-        msg.reply(":spy: WE ARE WATCHING YOU!")
+        msg.reply(":spy: WE ARE WATCHING YOU!") //NSA is watching ( ͡° ͜ʖ ͡°)
     }
     // Is it a command?
     if(msg.content.indexOf(config.prefix) !== 0) return;
